@@ -6,7 +6,7 @@
 <meta name="description" content="">
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="user-scalable=yes">
-<link rel="icon" type="image/x-icon" href="/favicon.png"><link rel="modulepreload" as="script" crossorigin href="/static/entry.fb65ba9f.js"><link rel="preload" as="style" href="/static/entry.0520c546.css"><link rel="prefetch" as="script" crossorigin href="/static/router-login.5db5cf6a.js"><link rel="prefetch" as="style" href="/static/default.ab43140b.css"><link rel="prefetch" as="style" href="/static/el-scrollbar.5995f843.css"><link rel="prefetch" as="style" href="/static/el-button.ba0ab8ad.css"><link rel="prefetch" as="script" crossorigin href="/static/default.2d5f6501.js"><link rel="prefetch" as="script" crossorigin href="/static/client-only.b979fb1d.js"><link rel="prefetch" as="script" crossorigin href="/static/user.0601841d.js"><link rel="prefetch" as="script" crossorigin href="/static/request.e22fd52b.js"><link rel="prefetch" as="script" crossorigin href="/static/el-tooltip.4ed993c7.js"><link rel="prefetch" as="script" crossorigin href="/static/index.8fb8a5c0.js"><link rel="stylesheet" href="/static/entry.0520c546.css"></head>
+<link rel="icon" type="image/x-icon" href="/favicon.png"><link rel="modulepreload" as="script" crossorigin href="/static/entry.12987791.js"><link rel="preload" as="style" href="/static/entry.0520c546.css"><link rel="prefetch" as="script" crossorigin href="/static/router-login.8348ad07.js"><link rel="prefetch" as="style" href="/static/default.312c1fa2.css"><link rel="prefetch" as="style" href="/static/el-scrollbar.5995f843.css"><link rel="prefetch" as="style" href="/static/el-button.ba0ab8ad.css"><link rel="prefetch" as="script" crossorigin href="/static/default.5d10b936.js"><link rel="prefetch" as="script" crossorigin href="/static/client-only.1c8220bb.js"><link rel="prefetch" as="script" crossorigin href="/static/user.1b1ae974.js"><link rel="prefetch" as="script" crossorigin href="/static/request.1f12d56f.js"><link rel="prefetch" as="script" crossorigin href="/static/el-tooltip.4ed993c7.js"><link rel="prefetch" as="script" crossorigin href="/static/index.5c844a64.js"><link rel="stylesheet" href="/static/entry.0520c546.css"></head>
 <body ><div id="__nuxt"><!DOCTYPE html>
 <html lang="en">
 
@@ -23,6 +23,7 @@
       font-family: Arial, sans-serif;
       background-color: black;
     }
+
     .content {
       height: 100vh;
       display: flex;
@@ -48,6 +49,7 @@
       left: 0;
       display: flex;
     }
+
     .content_box_frist .box {
       width: 15px;
       height: 100%;
@@ -55,6 +57,7 @@
       margin-right: 5px;
 
     }
+
     .content_box_second {
       height: 50px;
       position: absolute;
@@ -63,7 +66,7 @@
       display: flex;
     }
 
-   
+
 
     .content_box_second .box {
       width: 15px;
@@ -72,11 +75,19 @@
       margin-right: 5px;
     }
 
+    .box_finally {
+      position: relative;
+    }
+
     .progress_txt {
       width: 50px;
       font-size: 24px;
       font-weight: bold;
-      margin-left: 20px;
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 10px;
 
     }
   </style>
@@ -84,39 +95,40 @@
 
 <body>
   <div class="content">
-      <div class="content_box">
-        <div class="content_box_frist">
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-          <div class="box"></div>
-        </div>
-        <div class="content_box_second" id="progressContainer">
+    <div class="content_box">
+      <div class="content_box_frist">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box box_finally">
+          <span class="progress_txt" id="progressTextInside">0%</span>
         </div>
       </div>
-      <span class="progress_txt" id="progressTextInside">0%</span>
+      <div class="content_box_second" id="progressContainer">
+      </div>
+    </div>
   </div>
 
   <script>
@@ -124,30 +136,30 @@
     const totalBoxes = 25;
     const progressContainer = document.getElementById('progressContainer');
     const progressTextInside = document.getElementById('progressTextInside');
-  
+
     let isStuck = false;
-  
+
     function updateProgress() {
       if (progress < totalBoxes) {
         const newBox = document.createElement('div');
         newBox.classList.add('box');
         progressContainer.appendChild(newBox);
-  
+
         const progressPercentage = Math.floor((progress / totalBoxes) * 100);
         progressTextInside.textContent = `${progressPercentage}%`;
-  
+
         if (progress === Math.floor(totalBoxes / 2) && !isStuck) {
           isStuck = true;
           setTimeout(() => {
             progress++;
-            isStuck = false; 
-          }, 1000);   
+            isStuck = false;
+          }, 1000);
         } else {
           progress++;
         }
       }
     }
-  
+
     const intervalId = setInterval(() => {
       updateProgress();
       if (progress >= totalBoxes) {
@@ -161,6 +173,5 @@
 
 </body>
 
-</html>
-</div><script type="application/json" id="__NUXT_DATA__" data-ssr="false">[{"_errors":1,"serverRendered":2,"data":3,"state":4},{},false,{},{}]</script><script>window.__NUXT__={};window.__NUXT__.config={public:{api:{baseUrl:""},persistedState:{storage:"cookies",debug:false,cookieOptions:{}}},app:{baseURL:"/",buildAssetsDir:"/static/",cdnURL:""}}</script><script type="module" src="/static/entry.fb65ba9f.js" crossorigin></script></body>
+</html></div><script type="application/json" id="__NUXT_DATA__" data-ssr="false">[{"_errors":1,"serverRendered":2,"data":3,"state":4},{},false,{},{}]</script><script>window.__NUXT__={};window.__NUXT__.config={public:{api:{baseUrl:""},persistedState:{storage:"cookies",debug:false,cookieOptions:{}}},app:{baseURL:"/",buildAssetsDir:"/static/",cdnURL:""}}</script><script type="module" src="/static/entry.12987791.js" crossorigin></script></body>
 </html>
