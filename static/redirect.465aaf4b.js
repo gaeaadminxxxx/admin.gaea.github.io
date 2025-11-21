@@ -1,0 +1,1 @@
+import{aq as t,V as s,a8 as n}from"./entry.8e59c1d0.js";const i=t((r,e)=>{const a=s();if(e.query.token)return a.setToken(e.query.token),n("https://admin.gaea.la/send-an-email")});export{i as default};
